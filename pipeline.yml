@@ -20,9 +20,9 @@ test:
 stage:
   services:
     - type: rabbitmq
-      name: github-rabbitmq
+      name: rabbitmq-github
     - type: mysql
       name: mysql-github
     - type: eureka
-      name: github-eureka
+      name: eureka-github
       coordinates: com.example.eureka:github-eureka:0.0.1.M1
