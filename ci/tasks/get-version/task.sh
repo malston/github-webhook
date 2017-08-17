@@ -21,6 +21,8 @@ echo "Generated pipeline version is [${PIPELINE_VERSION}]"
 
 cd ${ROOT_FOLDER}/${REPO_RESOURCE}
 
+export USE_PIPELINE_VERSION=false
+
 [[ -f "${FUNCTIONS_FOLDER}/projectType/pipeline-jvm.sh" ]] && source "${FUNCTIONS_FOLDER}/projectType/pipeline-jvm.sh" || \
     echo "No ${FUNCTIONS_FOLDER}/projectType/pipeline-jvm.sh found"
 
