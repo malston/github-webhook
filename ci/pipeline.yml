@@ -54,6 +54,8 @@ jobs:
       passed:
       - generate-version
       trigger: true
+  - task: get-project-version  # Using the project version instead
+    file: repo/ci/tasks/get-version/task.yml
   - task: build-and-upload
     file: tools/tasks/build-and-upload/task.yml
     params:
