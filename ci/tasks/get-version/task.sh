@@ -28,5 +28,17 @@ export USE_PIPELINE_VERSION=false
 
 PROJECT_VERSION=$( retrieveVersion )
 echo "Project version is [${PROJECT_VERSION}]"
+MESSAGE="[Concourse CI] Use ${PROJECT_VERSION} from ${PROJECT_TYPE} for pipeline"
 
-echo "${PROJECT_VERSION}" > ${ROOT_FOLDER}/${VERSION_RESOURCE}/version
+cd ${ROOT_FOLDER}
+git clone version updated-version
+pushd updated-version
+  git config --local user.email "${GIT_EMAIL}"
+  git config --local user.name "${GIT_NAME}"
+
+  echo "Bump to ${PROJECT_VERSION}"
+  echo "${PROJECT_VERSION}" > version
+
+  git add version
+  git commit -m "${MESSAGE}"
+popd
