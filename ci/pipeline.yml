@@ -65,7 +65,6 @@ jobs:
   - task: build-and-upload
     file: tools/tasks/build-and-upload/task.yml
     params:
-      M2_REPO: ((maven-local-dir))
       <<: *common-params
   - task: create-dev-tag
     file: tools/tasks/tag-repo/task.yml
