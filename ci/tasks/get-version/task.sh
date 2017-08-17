@@ -19,10 +19,10 @@ echo "Functions folder is [${FUNCTIONS_FOLDER}]"
 PIPELINE_VERSION=$( cat ${ROOT_FOLDER}/${VERSION_RESOURCE}/version )
 echo "Generated pipeline version is [${PIPELINE_VERSION}]"
 
+cd ${ROOT_FOLDER}/${REPO_RESOURCE}
+
 [[ -f "${FUNCTIONS_FOLDER}/projectType/pipeline-jvm.sh" ]] && source "${FUNCTIONS_FOLDER}/projectType/pipeline-jvm.sh" || \
     echo "No ${FUNCTIONS_FOLDER}/projectType/pipeline-jvm.sh found"
-
-cd ${ROOT_FOLDER}/${REPO_RESOURCE}
 
 PROJECT_VERSION=$( retrieveVersion )
 echo "Project version is [${PROJECT_VERSION}]"
