@@ -108,7 +108,6 @@ jobs:
       <<: *common-params
       <<: *paas-test-params
       PAAS_HOSTNAME_UUID: ((paas-hostname-uuid))
-      UNIQUE_MYSQL_NAME: mysql-github-webhook
 
 - name: test-smoke
   serial: true

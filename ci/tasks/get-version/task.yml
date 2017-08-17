@@ -15,4 +15,4 @@ outputs:
   - name: updated-version
 
 run:
-  path: tools/tasks/get-version/task.sh
+  path: repo/ci/tasks/get-version/task.sh
