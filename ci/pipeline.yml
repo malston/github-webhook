@@ -56,6 +56,12 @@ jobs:
       trigger: true
   - task: get-project-version  # Using the project version instead
     file: repo/ci/tasks/get-version/task.yml
+    params:
+      GIT_EMAIL: ((git-email))
+      GIT_NAME: ((git-name))
+  - put: version
+    params:
+      repository: updated-version
   - task: build-and-upload
     file: tools/tasks/build-and-upload/task.yml
     params:
