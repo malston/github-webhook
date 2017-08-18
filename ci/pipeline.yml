@@ -42,6 +42,8 @@ jobs:
     - get: repo
       trigger: true
     - get: m2
+    - get: version
+      resource: version
   - task: get-version  # Using the project version instead
     file: repo/ci/tasks/get-version/task.yml
     params:
