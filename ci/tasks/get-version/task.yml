@@ -10,6 +10,7 @@ inputs:
   - name: version
   - name: tools
   - name: repo
+  - name: m2
 
 outputs:
   - name: updated-version

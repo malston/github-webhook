@@ -26,14 +26,16 @@ resources:
     repository: springcloud/spring-pipeline-m2
 
 jobs:
-- name: generate-version
+- name: get-project-version
   public: true
   plan:
   - aggregate:
     - get: tools
+    - get: repo
+    - get: m2
     - get: version
-  - task: generate-version
-    file: tools/tasks/generate-version/task.yml
+  - task: get-version  # Using the project version instead
+    file: repo/ci/tasks/get-version/task.yml
     params:
       GIT_EMAIL: ((git-email))
       GIT_NAME: ((git-name))
@@ -52,16 +54,8 @@ jobs:
     - get: version
       resource: version
       passed:
-      - generate-version
+      - get-project-version
       trigger: true
-  - task: get-project-version  # Using the project version instead
-    file: repo/ci/tasks/get-version/task.yml
-    params:
-      GIT_EMAIL: ((git-email))
-      GIT_NAME: ((git-name))
-  - put: version
-    params:
-      repository: updated-version
   - task: build-and-upload
     file: tools/tasks/build-and-upload/task.yml
     params:

@@ -39,6 +39,9 @@ pushd updated-version
   echo "Bump to ${PROJECT_VERSION}"
   echo "${PROJECT_VERSION}" > version
 
-  git add version
-  git commit -m "${MESSAGE}"
+  if [[ "${PROJECT_VERSION}" != "${PIPELINE_VERSION}" ]]; then
+    git add version
+    git commit -m "${MESSAGE}"
+  fi
+
 popd
