@@ -36,10 +36,10 @@ pushd updated-version
   git config --local user.email "${GIT_EMAIL}"
   git config --local user.name "${GIT_NAME}"
 
-  echo "Bump to ${PROJECT_VERSION}"
   echo "${PROJECT_VERSION}" > version
 
   if [[ "${PROJECT_VERSION}" != "${PIPELINE_VERSION}" ]]; then
+    echo "Bump to ${PROJECT_VERSION}"
     git add version
     git commit -m "${MESSAGE}"
   fi
