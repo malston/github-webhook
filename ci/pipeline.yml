@@ -47,7 +47,7 @@ jobs:
     - get: version
       resource: version
   - task: get-version  # Using the project version instead
-    file: repo/ci/tasks/get-version/task.yml
+    file: tools/tasks/get-version/task.yml
     params:
       GIT_EMAIL: ((git-email))
       GIT_NAME: ((git-name))
