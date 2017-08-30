@@ -43,7 +43,6 @@ jobs:
     - get: tools
     - get: repo
       trigger: true
-    - get: m2
     - get: version
       resource: version
   - task: get-version  # Using the project version instead
@@ -69,7 +68,6 @@ jobs:
       passed:
       - build-and-upload
       trigger: true
-    - get: m2
     - get: version
       resource: version
   - task: build-api-compatibility-check
@@ -87,7 +85,6 @@ jobs:
       passed:
       - build-api-compatibility-check
       trigger: true
-    - get: m2
     - get: version
       resource: version
   - task: test-deploy
@@ -107,7 +104,6 @@ jobs:
       passed:
       - test-deploy
       trigger: true
-    - get: m2
     - get: version
       resource: version
   - task: test-smoke
@@ -126,7 +122,6 @@ jobs:
       passed:
       - test-smoke
       trigger: true
-    - get: m2
     - get: version
       resource: version
   - task: test-rollback-deploy
@@ -146,7 +141,6 @@ jobs:
       passed:
       - test-rollback-deploy
       trigger: true
-    - get: m2
     - get: version
       resource: version
   - task: test-rollback-smoke
@@ -185,7 +179,6 @@ jobs:
   - aggregate:
     - get: tools
     - get: repo
-    - get: m2
     - get: version
     - get: tag
       resource: tag
@@ -206,7 +199,6 @@ jobs:
   - aggregate:
     - get: tools
     - get: repo
-    - get: m2
     - get: version
     - get: tag
       passed:
@@ -225,7 +217,6 @@ jobs:
   - aggregate:
     - get: tools
     - get: repo
-    - get: m2
     - get: version
     - get: tag
       passed:
@@ -258,7 +249,6 @@ jobs:
   - aggregate:
     - get: tools
     - get: repo
-    - get: m2
     - get: version
       resource: version
       passed:
@@ -278,7 +268,6 @@ jobs:
   - aggregate:
     - get: tools
     - get: repo
-    - get: m2
     - get: version
       resource: version
       passed:
@@ -296,7 +285,6 @@ common-params: &common-params
   BUILD_OPTIONS: ((build-options))
   GIT_EMAIL: ((git-email))
   GIT_NAME: ((git-name))
-  M2_REPO: ((maven-local-dir))
   M2_SETTINGS_REPO_ID: ((m2-settings-repo-id))
   M2_SETTINGS_REPO_PASSWORD: ((m2-settings-repo-password))
   M2_SETTINGS_REPO_USERNAME: ((m2-settings-repo-username))
