@@ -29,11 +29,6 @@ resources:
     uri: ((tools-scripts-url))
     branch: ((tools-branch))
 
-- name: m2
-  type: docker-image
-  source:
-    repository: springcloud/spring-pipeline-m2
-
 jobs:
 - name: build-and-upload
   serial: true
