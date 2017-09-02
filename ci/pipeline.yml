@@ -56,7 +56,7 @@ jobs:
     params:
       repository: updated-version
   - task: build-and-upload
-    file: tools/concourse/tasks/build-and-upload.yml
+    file: apptx/tasks/build-and-upload/task.yml
     params:
       <<: *common-params
 
@@ -65,7 +65,7 @@ jobs:
   public: false
   plan:
   - aggregate:
-    - get: apptx
+    - get: tools
     - get: repo
       passed:
       - build-and-upload
@@ -73,7 +73,7 @@ jobs:
     - get: version
       resource: version
   - task: build-api-compatibility-check
-    file: apptx/tasks/build-api-compatibility-check/task.yml
+    file: tools/concourse/tasks/build-api-compatibility-check.yml
     params:
       <<: *common-params
 
@@ -82,7 +82,7 @@ jobs:
   public: false
   plan:
   - aggregate:
-    - get: apptx
+    - get: tools
     - get: repo
       passed:
       - build-api-compatibility-check
@@ -90,7 +90,7 @@ jobs:
     - get: version
       resource: version
   - task: test-deploy
-    file: apptx/tasks/test-deploy/task.yml
+    file: tools/concourse/tasks/test-deploy.yml
     params:
       <<: *common-params
       <<: *paas-test-params
@@ -101,7 +101,7 @@ jobs:
   public: false
   plan:
   - aggregate:
-    - get: apptx
+    - get: tools
     - get: repo
       passed:
       - test-deploy
@@ -109,7 +109,7 @@ jobs:
     - get: version
       resource: version
   - task: test-smoke
-    file: apptx/tasks/test-smoke/task.yml
+    file: tools/concourse/tasks/test-smoke.yml
     params:
       <<: *common-params
       <<: *paas-test-params
@@ -119,7 +119,7 @@ jobs:
   public: false
   plan:
   - aggregate:
-    - get: apptx
+    - get: tools
     - get: repo
       passed:
       - test-smoke
@@ -127,7 +127,7 @@ jobs:
     - get: version
       resource: version
   - task: test-rollback-deploy
-    file: apptx/tasks/test-rollback-deploy/task.yml
+    file: tools/concourse/tasks/test-rollback-deploy.yml
     params:
       <<: *common-params
       <<: *paas-test-params
@@ -138,7 +138,7 @@ jobs:
   public: false
   plan:
   - aggregate:
-    - get: apptx
+    - get: tools
     - get: repo
       passed:
       - test-rollback-deploy
@@ -146,7 +146,7 @@ jobs:
     - get: version
       resource: version
   - task: test-rollback-smoke
-    file: apptx/tasks/test-rollback-smoke/task.yml
+    file: tools/concourse/tasks/test-rollback-smoke.yml
     params:
       <<: *common-params
       <<: *paas-test-params
@@ -179,7 +179,7 @@ jobs:
   public: false
   plan:
   - aggregate:
-    - get: apptx
+    - get: tools
     - get: repo
     - get: version
     - get: tag
@@ -188,7 +188,7 @@ jobs:
       - tag-dev-build
       trigger: true
   - task: stage-deploy
-    file: apptx/tasks/stage-deploy/task.yml
+    file: tools/concourse/tasks/stage-deploy.yml
     params:
       <<: *common-params
       <<: *paas-stage-params
@@ -199,7 +199,7 @@ jobs:
   public: false
   plan:
   - aggregate:
-    - get: apptx
+    - get: tools
     - get: repo
     - get: version
     - get: tag
@@ -207,7 +207,7 @@ jobs:
       - stage-deploy
       trigger: true
   - task: stage-e2e
-    file: apptx/tasks/stage-e2e/task.yml
+    file: tools/concourse/tasks/stage-e2e.yml
     params:
       <<: *common-params
       <<: *paas-stage-params
@@ -249,7 +249,7 @@ jobs:
   public: false
   plan:
   - aggregate:
-    - get: apptx
+    - get: tools
     - get: repo
     - get: version
       resource: version
@@ -257,7 +257,7 @@ jobs:
       - promote-to-prod
       trigger: false
   - task: prod-deploy
-    file: apptx/tasks/prod-deploy/task.yml
+    file: tools/concourse/tasks/prod-deploy.yml
     params:
       <<: *common-params
       <<: *paas-prod-params
@@ -268,7 +268,7 @@ jobs:
   public: false
   plan:
   - aggregate:
-    - get: apptx
+    - get: tools
     - get: repo
     - get: version
       resource: version
@@ -276,7 +276,7 @@ jobs:
       - prod-deploy
       trigger: false
   - task: prod-complete
-    file: apptx/tasks/prod-complete/task.yml
+    file: tools/concourse/tasks/prod-complete.yml
     params:
       <<: *common-params
       <<: *paas-prod-params
@@ -293,6 +293,7 @@ common-params: &common-params
   PAAS_TYPE: ((paas-type))
   REPO_WITH_BINARIES: ((repo-with-binaries))
   REPO_WITH_SNAPSHOT_BINARIES: ((repo-with-snaphost-binaries))
+  CUSTOM_SCRIPT_IDENTIFIER: apptx
 
 paas-prod-params: &paas-prod-params
   PAAS_PROD_API_URL: ((paas-prod-api-url))
